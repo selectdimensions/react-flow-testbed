@@ -1,0 +1,22 @@
+.app {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .app-header {
+    background-color: #282c34;
+    padding: 10px;
+    color: white;
+  }
+  
+  .app-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .app-content {
+    flex-grow: 1;
+    position: relative;
+  }
