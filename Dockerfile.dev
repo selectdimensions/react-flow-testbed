@@ -1,0 +1,33 @@
+# Development Dockerfile
+FROM python:3.12-slim
+
+# Install Node.js
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Poetry
+RUN pip install poetry
+
+# Set working directory
+WORKDIR /app
+
+# Copy configuration files
+COPY package*.json pyproject.toml poetry.lock* ./
+
+# Install dependencies
+RUN npm install
+RUN poetry config virtualenvs.create false && poetry install
+
+# Copy source code
+COPY . .
+
+# Expose ports
+EXPOSE 3000 8000
+
+# Start development script
+CMD ["sh", "./scripts/start-dev.sh"]
